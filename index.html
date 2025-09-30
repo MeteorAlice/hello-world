@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>卫星运控系统 - 需求与任务管理</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cesium@1.114.0/Build/Cesium/Widgets/widgets.css">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="branding">
+      <span class="mdi mdi-satellite-variant"></span>
+      <h1>卫星运控系统</h1>
+    </div>
+    <div class="header-actions">
+      <button class="btn ghost"><span class="mdi mdi-help-circle-outline"></span>帮助中心</button>
+      <button class="btn primary"><span class="mdi mdi-bell-outline"></span>告警 (3)</button>
+      <div class="user-avatar">司</div>
+    </div>
+  </header>
+  <main class="layout">
+    <aside class="control-panel">
+      <nav class="section-tabs">
+        <button class="tab-button active" data-tab="requirements"><span class="mdi mdi-playlist-check"></span>需求管理</button>
+        <button class="tab-button" data-tab="tasks"><span class="mdi mdi-rocket-launch"></span>任务管理</button>
+      </nav>
+
+      <section class="panel" id="requirements-panel">
+        <div class="panel-header">
+          <h2>需求总览</h2>
+          <button class="btn ghost" id="auto-generate"><span class="mdi mdi-auto-fix"></span>智能生成</button>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="label">今日新增</span>
+            <span class="value" id="stat-new">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="label">待审批</span>
+            <span class="value" id="stat-pending">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="label">高优先级</span>
+            <span class="value" id="stat-priority">0</span>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <details open>
+            <summary><span class="mdi mdi-file-upload"></span>需求提报</summary>
+            <form id="requirement-form" class="form-grid">
+              <label>
+                需求名称
+                <input type="text" name="name" placeholder="例如：东海舰队重点水域监测" required>
+              </label>
+              <label>
+                优先级
+                <select name="priority" required>
+                  <option value="高">高</option>
+                  <option value="中" selected>中</option>
+                  <option value="低">低</option>
+                </select>
+              </label>
+              <label class="full">
+                来源部门
+                <input type="text" name="source" placeholder="例如：情报一处" required>
+              </label>
+              <label class="full">
+                目标类型
+                <div class="chip-group">
+                  <label><input type="checkbox" name="targets" value="点">点</label>
+                  <label><input type="checkbox" name="targets" value="区域形状">形状</label>
+                  <label><input type="checkbox" name="targets" value="SHP">SHP</label>
+                  <label><input type="checkbox" name="targets" value="动目标">动目标</label>
+                  <label><input type="checkbox" name="targets" value="目标库">目标库</label>
+                </div>
+              </label>
+              <label class="full">
+                网格化参数
+                <div class="grid-params">
+                  <input type="number" name="gridSize" placeholder="网格大小 (km)" min="1">
+                  <input type="number" name="gridInterval" placeholder="刷新间隔 (min)" min="5">
+                  <label class="switch">
+                    <input type="checkbox" name="autoGrid">
+                    <span>自动网格化</span>
+                  </label>
+                </div>
+              </label>
+              <label class="full">
+                需求说明
+                <textarea name="description" rows="3" placeholder="描述监测目标、时效要求、合并/拆解建议等"></textarea>
+              </label>
+              <div class="form-actions full">
+                <button type="button" class="btn ghost" id="import-shp"><span class="mdi mdi-database-import"></span>导入SHP</button>
+                <button type="submit" class="btn primary"><span class="mdi mdi-send"></span>提交需求</button>
+              </div>
+            </form>
+          </details>
+          <details open>
+            <summary><span class="mdi mdi-account-multiple-outline"></span>需求审批</summary>
+            <div class="approval-queue" id="approval-queue"></div>
+          </details>
+        </div>
+
+        <div class="panel-header mt">
+          <h2>需求列表</h2>
+          <div class="panel-actions">
+            <button class="btn ghost" id="merge-req"><span class="mdi mdi-vector-union"></span>需求合并</button>
+            <button class="btn ghost" id="split-req"><span class="mdi mdi-vector-difference"></span>需求拆解</button>
+          </div>
+        </div>
+        <div class="list" id="requirement-list"></div>
+      </section>
+
+      <section class="panel hidden" id="tasks-panel">
+        <div class="panel-header">
+          <h2>任务总览</h2>
+          <button class="btn ghost" id="plan-task"><span class="mdi mdi-timetable"></span>快速规划</button>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="label">执行中</span>
+            <span class="value" id="stat-running">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="label">待下发</span>
+            <span class="value" id="stat-to-dispatch">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="label">平均响应</span>
+            <span class="value" id="stat-response">0h</span>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <details open>
+            <summary><span class="mdi mdi-calendar-range"></span>任务规划</summary>
+            <form id="task-plan-form" class="form-grid">
+              <label>
+                执行卫星
+                <select name="satellite" required>
+                  <option value="高分-12">高分-12</option>
+                  <option value="遥感-30">遥感-30</option>
+                  <option value="高分-6B">高分-6B</option>
+                </select>
+              </label>
+              <label>
+                执行窗口
+                <input type="datetime-local" name="windowStart" required>
+              </label>
+              <label>
+                结束时间
+                <input type="datetime-local" name="windowEnd" required>
+              </label>
+              <label class="full">
+                轨道策略
+                <select name="strategy">
+                  <option value="快捷成像">快捷成像</option>
+                  <option value="低轨跟踪">低轨跟踪</option>
+                  <option value="多星编队">多星编队</option>
+                </select>
+              </label>
+              <label class="full">
+                下发渠道
+                <div class="chip-group">
+                  <label><input type="checkbox" name="dispatch" value="北斗链路" checked>北斗链路</label>
+                  <label><input type="checkbox" name="dispatch" value="S波段">S波段</label>
+                  <label><input type="checkbox" name="dispatch" value="光通信">光通信</label>
+                </div>
+              </label>
+              <label class="full">
+                规划备注
+                <textarea name="planNote" rows="2" placeholder="说明机动、成像参数、与其他任务冲突等"></textarea>
+              </label>
+              <div class="form-actions full">
+                <button type="button" class="btn ghost" id="simulate"><span class="mdi mdi-animation"></span>仿真预演</button>
+                <button type="submit" class="btn primary"><span class="mdi mdi-rocket"></span>生成任务</button>
+              </div>
+            </form>
+          </details>
+          <details open>
+            <summary><span class="mdi mdi-send"></span>任务下发</summary>
+            <div class="dispatch-queue" id="dispatch-queue"></div>
+          </details>
+        </div>
+
+        <div class="panel-header mt">
+          <h2>任务列表</h2>
+          <div class="panel-actions">
+            <button class="btn ghost" id="dispatch-all"><span class="mdi mdi-broadcast"></span>批量下发</button>
+            <button class="btn ghost" id="export-plan"><span class="mdi mdi-file-export"></span>导出计划</button>
+          </div>
+        </div>
+        <div class="list" id="task-list"></div>
+      </section>
+    </aside>
+
+    <section class="map-panel">
+      <div class="map-toolbar">
+        <div class="chip-group">
+          <label><input type="checkbox" id="toggle-grid" checked>需求网格</label>
+          <label><input type="checkbox" id="toggle-req" checked>需求目标</label>
+          <label><input type="checkbox" id="toggle-tasks" checked>任务轨迹</label>
+        </div>
+        <div class="search-bar">
+          <span class="mdi mdi-magnify"></span>
+          <input type="search" placeholder="搜索需求/任务/目标">
+        </div>
+      </div>
+      <div id="cesiumContainer"></div>
+      <div class="timeline-panel" id="timeline-panel">
+        <h3><span class="mdi mdi-timeline"></span>时序追踪</h3>
+        <ul id="timeline-list"></ul>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/cesium@1.114.0/Build/Cesium/Cesium.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
