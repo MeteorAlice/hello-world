@@ -1,0 +1,272 @@
+:root {
+  --bg: #040b1d;
+  --card: rgba(5, 24, 58, 0.8);
+  --line: #1d4f8f;
+  --text: #d5e6ff;
+  --muted: #8ba7d5;
+  --cyan: #19d2ff;
+  --green: #27f0b6;
+  --danger: #ff4b62;
+  --warn: #ffb340;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: radial-gradient(circle at 20% 0%, #0b2f66 0%, var(--bg) 45%);
+  color: var(--text);
+}
+
+.page-bg {
+  position: fixed;
+  inset: 0;
+  background-image: linear-gradient(rgba(30, 96, 183, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 96, 183, 0.15) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.dashboard {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 12px;
+  padding: 12px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(20, 84, 170, 0.2);
+}
+
+.topbar {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+}
+
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.brand-logo {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+}
+
+h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+
+p {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+.countdown-wrap {
+  text-align: right;
+}
+
+.countdown-wrap strong {
+  display: block;
+  margin-top: 6px;
+  color: var(--danger);
+  font-size: 42px;
+  letter-spacing: 1px;
+}
+
+.left {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.kv-list,
+.score-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.kv-list li,
+.score-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  border: 1px solid #1c4478;
+  border-radius: 8px;
+  color: var(--muted);
+}
+
+.kv-list b,
+.score-list b {
+  color: #f2f7ff;
+}
+
+.danger {
+  color: var(--danger) !important;
+}
+
+.steps {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.steps li {
+  margin: 10px 0;
+  color: var(--muted);
+}
+
+.steps li.active {
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+.main {
+  display: grid;
+  gap: 12px;
+  grid-template-rows: auto 1fr auto;
+}
+
+.stage-row,
+.map-card,
+.bottom-grid {
+  padding: 14px;
+}
+
+.tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.chip {
+  padding: 8px 12px;
+  border: 1px solid #2a5e99;
+  border-radius: 999px;
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+.chip.warn {
+  color: var(--warn);
+}
+
+.chip.danger {
+  color: var(--danger);
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.timeline div {
+  border: 1px solid #2a5e99;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.timeline b {
+  display: block;
+  color: var(--green);
+}
+
+.map-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.legend {
+  display: flex;
+  gap: 14px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.dot.target { background: var(--danger); }
+.dot.sat { background: var(--cyan); }
+.dot.station { background: var(--green); }
+
+.map {
+  width: 100%;
+  height: 440px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 14px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #2a5e99;
+  padding: 8px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.recommend {
+  margin-top: 16px;
+  border: 1px solid #2a5e99;
+  border-left: 4px solid var(--green);
+  padding: 12px;
+  color: #dff7ff;
+}
+
+@media (max-width: 1200px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .bottom-grid,
+  .timeline {
+    grid-template-columns: 1fr;
+  }
+}
