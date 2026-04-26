@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>卫星情报侦察保障智能筹划系统</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-bg"></div>
+    <div class="app">
+      <header class="topbar panel">
+        <div class="logo">◈ 卫星情报侦察保障智能筹划系统</div>
+        <nav class="tabs">
+          <a>综合态势</a><a>需求管理</a><a>任务管控</a><a class="active">任务筹划</a><a>资源管理</a><a>系统运维</a>
+        </nav>
+        <div class="meta">AI 在线 · 管理员 · <span id="clock">2026-04-26 14:35:28</span></div>
+      </header>
+
+      <main class="layout">
+        <aside class="left-col">
+          <section class="panel block">
+            <h3>任务信息</h3>
+            <ul class="kv">
+              <li><span>任务名称</span><b>台湾中南部海马斯侦察案</b></li>
+              <li><span>任务编号</span><b>TAC-20240520-001</b></li>
+              <li><span>需求编号</span><b>REQ-20240520-001</b></li>
+              <li><span>威胁等级</span><b class="red">高/时敏：海马斯</b></li>
+              <li><span>预计主时</span><b>2026-04-26 14:35:28</b></li>
+              <li><span>当前状态</span><b class="blue">筹划中</b></li>
+            </ul>
+          </section>
+
+          <section class="panel block">
+            <h3>相关目标类型</h3>
+            <button class="chip red">高时敏：海马斯</button>
+            <button class="chip amber">中时敏：海上舰艇</button>
+            <button class="chip blue">低时敏：登陆舰</button>
+          </section>
+
+          <section class="panel block">
+            <h3>筹划步骤</h3>
+            <ol class="steps">
+              <li class="on">1 任务更新与KPI分解</li>
+              <li>2 资源匹配与备份</li>
+              <li>3 时间窗口计算</li>
+              <li>4 方案评估与决策</li>
+            </ol>
+          </section>
+
+          <section class="panel block">
+            <h3>方案版本</h3>
+            <ul class="versions">
+              <li class="on">V1.2 推荐方案 A ★</li>
+              <li>V1.1 备选方案 B</li>
+              <li>V1.0 初始方案</li>
+            </ul>
+          </section>
+        </aside>
+
+        <section class="center-col">
+          <section class="panel block">
+            <h2>步骤一：任务更新与 KPI 分解</h2>
+            <div class="kpi-cards">
+              <article class="card red"><h4>高时敏目标（海马斯）</h4><p>主目标：1处（台中南部）</p><b>目标闭环 &lt; 25 分钟</b></article>
+              <article class="card amber"><h4>中时敏目标（海上舰艇）</h4><p>主目标：2处（海上威胁）</p><b>目标闭环 &lt; 60 分钟</b></article>
+              <article class="card blue"><h4>低时敏目标（登陆舰）</h4><p>次要目标：若干（登陆舰）</p><b>目标闭环 &lt; 120 分钟</b></article>
+            </div>
+            <div class="flow">任务链路：任务下发 → 资源指派 → 卫星调度 → 任务执行 → 图像处理 → 目标解译 → 报告生成 → 产品递交</div>
+            <table>
+              <thead><tr><th>阶段</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr></thead>
+              <tbody>
+                <tr><td>阶段名称</td><td>任务下发</td><td>资源指派</td><td>卫星调度</td><td>上注/隐蔽</td><td>任务执行</td><td>图像处理</td><td>目标解译</td><td>报告生成</td><td>产品递交</td><td>闭环确认</td></tr>
+                <tr><td>阶段时限(分)</td><td>1:30</td><td>1:00</td><td>2:30</td><td>1:30</td><td>8:30</td><td>3:00</td><td>2:30</td><td>1:30</td><td>1:00</td><td>1:30</td></tr>
+                <tr><td>最晚完成时刻</td><td>14:36</td><td>14:37</td><td>14:40</td><td>14:41</td><td>14:50</td><td>14:53</td><td>14:55</td><td>14:57</td><td>14:59</td><td class="red">15:00</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section class="panel block">
+            <h2>步骤三：时间窗口计算（全局闭环倒推）</h2>
+            <div class="timeline">
+              <div><span>AI卫星（GF-6）</span><i style="--w:74%;--c:#2deca8">14:36:30 - 14:53:30</i></div>
+              <div><span>GF-5（主星）</span><i style="--w:75%;--c:#54dcff">14:36:33 - 14:53:33</i></div>
+              <div><span>GF-3（备份）</span><i style="--w:78%;--c:#b98cff">14:37:00 - 14:54:00</i></div>
+              <div><span>链路资源</span><i style="--w:72%;--c:#ffb454">14:36:30 - 14:53:30</i></div>
+              <div><span>AI处理节点</span><i style="--w:72%;--c:#a98fff">14:36:30 - 14:53:30</i></div>
+            </div>
+          </section>
+        </section>
+
+        <aside class="right-col">
+          <section class="panel block map">
+            <h2>步骤二：资源匹配与备份</h2>
+            <div class="island">目标区域</div>
+            <table>
+              <thead><tr><th>资源类别</th><th>主用资源</th><th>备份资源</th><th>状态</th></tr></thead>
+              <tbody>
+                <tr><td>AI卫星资源</td><td>AI卫星-02</td><td>AI卫星-01</td><td class="green">可用</td></tr>
+                <tr><td>光学卫星资源</td><td>GF-6</td><td>GF-3</td><td class="green">可用</td></tr>
+                <tr><td>链路资源</td><td>基站链路(主)</td><td>野战链路(备)</td><td class="green">可用</td></tr>
+                <tr><td>算力资源</td><td>主处理AI节点-01</td><td>备处理AI节点-01</td><td class="green">可用</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section class="panel block score">
+            <h2>步骤四：方案评估与决策</h2>
+            <div class="score-wrap">
+              <div class="ring"><strong>94.6</strong><span>方案综合评分</span></div>
+              <ul>
+                <li>目标闭环度 <b>99/100</b></li>
+                <li>资源可用性 <b>99/100</b></li>
+                <li>时间可靠性 <b>92/100</b></li>
+                <li>链路可靠性 <b>92/100</b></li>
+                <li>产品保障能力 <b>93/100</b></li>
+              </ul>
+            </div>
+            <div class="recommend">推荐方案 A</div>
+          </section>
+
+          <section class="panel block">
+            <h3>AI 筹划助手</h3>
+            <ul class="assist">
+              <li>建议启用备份链路资源，提升突发链路风险应对能力</li>
+              <li>GF-6 任务执行优先级最高，窗口 17 分钟足够</li>
+              <li class="warn">15:00 任务闭环接近极限节点，建议严格按时推进</li>
+            </ul>
+          </section>
+        </aside>
+      </main>
+
+      <footer class="actions">
+        <button>方案库</button><button>导出方案</button><button>版本对比</button>
+        <button>保存草案</button><button>另存为</button><button>一键仿真</button>
+        <button class="submit">提交方案评审</button><button>返回方案库</button>
+      </footer>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
