@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>卫星联合调度任务筹划</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/ol@v9.2.4/ol.css"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-bg"></div>
+    <div class="dashboard">
+      <header class="topbar card">
+        <div class="brand">
+          <span class="brand-logo">✦</span>
+          <div>
+            <h1>卫星情报侦察联合调度筹划系统</h1>
+            <p>多源卫星 · 地面站 · 算力链路一体化</p>
+          </div>
+        </div>
+        <div class="countdown-wrap">
+          <span>目标剩余窗口倒计时</span>
+          <strong id="countdown">00:26:40</strong>
+        </div>
+      </header>
+
+      <aside class="left card">
+        <section>
+          <h2>任务信息</h2>
+          <ul class="kv-list">
+            <li><span>任务代号</span><b>TASK-2026-0426-001</b></li>
+            <li><span>目标类别</span><b class="danger">高时敏：海马斯</b></li>
+            <li><span>区域</span><b>台湾东北近海</b></li>
+            <li><span>任务上限</span><b>&lt; 25 分钟</b></li>
+          </ul>
+        </section>
+        <section>
+          <h2>筹划步骤</h2>
+          <ol class="steps">
+            <li class="active">任务理解与KPI分解</li>
+            <li>资源匹配与备份</li>
+            <li>时间窗口计算</li>
+            <li>方案评估与决策</li>
+          </ol>
+        </section>
+      </aside>
+
+      <main class="main">
+        <section class="card stage-row">
+          <h2>步骤一：任务理解与KPI分解</h2>
+          <div class="tags">
+            <span class="chip danger">高时敏目标（海马斯）</span>
+            <span class="chip warn">优先：光学卫星快速下传</span>
+            <span class="chip">备份：SAR卫星 + 异地站</span>
+          </div>
+          <div class="timeline">
+            <div><b>T0</b><span>任务下发</span></div>
+            <div><b>+3m</b><span>卫星入窗</span></div>
+            <div><b>+8m</b><span>星上处理</span></div>
+            <div><b>+16m</b><span>跨网传输</span></div>
+            <div><b>+25m</b><span>产品回传闭环</span></div>
+          </div>
+        </section>
+
+        <section class="map-card card">
+          <div class="map-head">
+            <h2>步骤二：资源匹配与备份（OpenLayers）</h2>
+            <div class="legend">
+              <span><i class="dot target"></i>目标区域</span>
+              <span><i class="dot sat"></i>卫星资源</span>
+              <span><i class="dot station"></i>地面站</span>
+            </div>
+          </div>
+          <div id="map" class="map"></div>
+        </section>
+
+        <section class="card bottom-grid">
+          <div>
+            <h2>步骤三：时间窗口计算</h2>
+            <table>
+              <thead>
+                <tr><th>链路</th><th>主窗口</th><th>备份窗口</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>AI卫星-01</td><td>14:36:20 - 14:41:20</td><td>14:41:30 - 14:46:30</td></tr>
+                <tr><td>光学卫星-03</td><td>14:43:20 - 14:48:20</td><td>14:48:30 - 14:53:30</td></tr>
+                <tr><td>跨网链路</td><td>14:48:20 - 14:52:20</td><td>14:52:20 - 14:58:20</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h2>步骤四：方案评估与决策</h2>
+            <ul class="score-list">
+              <li><span>时效满足度</span><b>98/100</b></li>
+              <li><span>资源可达性</span><b>92/100</b></li>
+              <li><span>链路可靠性</span><b>94/100</b></li>
+              <li><span>跨网可用性</span><b>90/100</b></li>
+            </ul>
+            <p class="recommend">推荐方案 A：主备链路完备，满足 25 分钟内闭环。</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
